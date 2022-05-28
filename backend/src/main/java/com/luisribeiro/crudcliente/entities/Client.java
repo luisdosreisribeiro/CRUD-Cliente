@@ -1,5 +1,6 @@
 package com.luisribeiro.crudcliente.entities;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 import javax.persistence.Entity;
@@ -9,8 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
 @Table(name ="Client")
-public class Client {
-	
+public class Client implements Serializable {
+		private static final long serialVersionUID = 1L;
+		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -23,7 +25,7 @@ public class Client {
 	public Client() {
 		
 	}
-
+	
 	public Long getId() {return id;}
 
 	public void setId(Long id) {this.id = id;}

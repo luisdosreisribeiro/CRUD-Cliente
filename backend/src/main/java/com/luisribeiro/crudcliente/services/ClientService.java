@@ -7,12 +7,15 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.luisribeiro.crudcliente.dto.ClientDTO;
 import com.luisribeiro.crudcliente.entities.Client;
 import com.luisribeiro.crudcliente.repositories.ClientRepository;
+import com.luisribeiro.crudcliente.services.exceptions.DatabaseException;
 import com.luisribeiro.crudcliente.services.exceptions.EntidadeNaoEncotradaExcetion;
 
 @Service
@@ -69,6 +72,21 @@ public class ClientService {
 			throw new EntidadeNaoEncotradaExcetion("Id não encontrado: " + id);
 		}
 
+	}
+
+	public void excluir(Long id) {
+		try {
+			clientRepository.deleteById(id);
+		}
+		catch(EmptyResultDataAccessException e) {
+			throw new EntidadeNaoEncotradaExcetion("Id não encontrado." + id);
+			
+		}
+		catch(DataIntegrityViolationException e) {
+			throw new  DatabaseException("Violação de Integridade.");
+		}
+		
+		
 	}
 
 }

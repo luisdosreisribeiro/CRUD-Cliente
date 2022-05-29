@@ -39,9 +39,20 @@ public class ClientService {
 		
 	}
 
-	public Client save(Client client) {
-		clientRepository.save(client);
-		return client;
+	@Transactional
+	public ClientDTO save(ClientDTO clientDto) {
+		Client entity = new Client();
+		entity.setName(clientDto.getName());
+		entity.setBirthDate(clientDto.getBirthDate());
+		entity.setChildren(clientDto.getChildren());
+		entity.setIncome(clientDto.getIncome());
+		entity.setCpf(clientDto.getCpf());
+		
+		entity = clientRepository.save(entity);
+		return new ClientDTO(entity);
+		
+		
+		
 	}
 
 }

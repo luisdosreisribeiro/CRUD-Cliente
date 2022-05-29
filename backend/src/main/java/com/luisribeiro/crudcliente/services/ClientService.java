@@ -39,4 +39,9 @@ public class ClientService {
 		
 	}
 
+	public Client save(Client client) {
+		clientRepository.save(client);
+		return client;
+	}
+
 }

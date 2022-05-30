@@ -3,10 +3,13 @@ package com.luisribeiro.crudcliente.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 @Entity
 @Table(name ="Client")
@@ -21,6 +24,12 @@ public class Client implements Serializable {
 	private Double income;
 	private Instant birthDate;
 	private Integer children;
+	
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	private Instant updateAt;
+	
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	private Instant createdAt;
 	
 	public Client() {
 		
@@ -48,7 +57,22 @@ public class Client implements Serializable {
 
 	public Integer getChildren() {return children;}
 
-	public void setChildren(Integer children) {this.children = children;}
+	public void setChildren(Integer children) {this.children = children;}	
+	
+	public Instant getUpdateAt() {return updateAt;}
+
+	public Instant getCreatedAt() {return createdAt;}
+	
+	@PrePersist
+	public void prePersist() {
+		createdAt = Instant.now();
+	}
+	
+	@PreUpdate
+	public void PreUpdate() {
+		updateAt = Instant.now();
+	}
+	
 
 	@Override
 	public int hashCode() {

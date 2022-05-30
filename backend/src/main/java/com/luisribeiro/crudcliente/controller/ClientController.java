@@ -29,12 +29,6 @@ public class ClientController {
 	@Autowired
 	private ClientService clientService;
 
-//	@GetMapping
-//	public ResponseEntity<List<ClientDTO>> listar() {
-//		List<ClientDTO> list = clientService.findAll();
-//		return ResponseEntity.ok().body(list);
-//
-//	}
 	
 	@GetMapping
 	public ResponseEntity<Page<ClientDTO>> listarPaginado(

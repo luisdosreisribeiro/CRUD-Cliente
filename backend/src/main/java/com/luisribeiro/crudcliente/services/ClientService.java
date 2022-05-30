@@ -39,7 +39,7 @@ public class ClientService {
 	@Transactional(readOnly = true)
 	public ClientDTO findById(Long id) {
 		Optional<Client> obj = clientRepository.findById(id);
-		Client entity = obj.orElseThrow(() -> new EntidadeNaoEncotradaExcetion("Entidade não encontradaa!"));
+		Client entity = obj.orElseThrow(() -> new EntidadeNaoEncotradaExcetion("Entidade não encontrada!"));
 		return new ClientDTO(entity);
 
 	}
